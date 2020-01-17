@@ -1,0 +1,22 @@
+@import 'reset-css/sass/reset';
+@import 'utils/typography';
+@import 'utils/variables';
+@import 'utils/grid';
+
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    font-family: $fontStack--sans;
+    color: $black;
+}
+
+.container {
+    @include make-container();
+}
