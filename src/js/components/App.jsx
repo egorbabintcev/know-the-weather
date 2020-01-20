@@ -1,5 +1,6 @@
 import React, { Component, lazy, Suspense } from 'react';
 import Loading from './Loading.jsx';
+const WeatherDisplay = lazy(() => import('./WeatherDisplay.jsx'));
 
 class App extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class App extends Component {
             <div className="container">
                 <div className="weather">
                     <Suspense fallback={<Loading />}>
-                        <span>placeholder</span>
+                        <WeatherDisplay weather={this.state.weather.currently} city={this.state.weather.timezone} />
                     </Suspense>
                 </div>
             </div>
