@@ -80,6 +80,7 @@ body {
 
     &-display {
         padding: 40px 30px;
+        margin-right: 100px;
         position: relative;
         display: flex;
         align-items: center;
@@ -135,4 +136,27 @@ body {
             }
         }
     }
+    &-info {
+        display: flex;
+        &__list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            &-item {
+                padding: 5px 0;
+                font: {
+                    size: 1.8rem;
+                    weight: 400;
+                }
+
+                & strong {
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+.clear {
+    width: 100%;
 }
