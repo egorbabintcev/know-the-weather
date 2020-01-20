@@ -20,3 +20,18 @@ body {
 .container {
     @include make-container();
 }
+@import 'reset-css/sass/reset';
+@import 'utils/typography', 'utils/variables', 'utils/grid';
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: $dark--main;
+    font-family: $fontStack--sans;
+}
+
+.container {
+    @include make-container();
+}
