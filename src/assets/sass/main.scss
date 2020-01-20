@@ -35,3 +35,39 @@ body {
 .container {
     @include make-container();
 }
+
+.loading-circle {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    color: $dark--main;
+    position: relative;
+    display: inline-block;
+    border: 5px solid;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fallback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 150px;
+    & h3 {
+        font: {
+            size: 3rem;
+            weight: 700;
+        }
+    }
+}

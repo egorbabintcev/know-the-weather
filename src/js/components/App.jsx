@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
+import Loading from './Loading.jsx';
 
 class App extends Component {
     constructor(props) {
@@ -14,11 +15,11 @@ class App extends Component {
     }
 
     render() {
-        if (!this.state.weather) return ( <div className="">loading...</div> );
+        if (!this.state.weather) return <Loading />;   
         return (
             <div className="container">
                 <div className="weather">
-                    <Suspense fallback="...loading">
+                    <Suspense fallback={<Loading />}>
                         <span>placeholder</span>
                     </Suspense>
                 </div>
@@ -37,7 +38,7 @@ function getWeather(apiKey) {    ;
             const darksky = `https://api.darksky.net/forecast/${apiKey}/${lat},${lon}?units=ca&exclude=minutely,hourly,alerts,flags`;
             fetch(proxy + darksky)
                 .then(resp => resp)
-                .then(data => { resolve(data.json()) })
+                .then(data => { setTimeout(() => resolve(data.json()), 1000) })
         })
     })
 }
