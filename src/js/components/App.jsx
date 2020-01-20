@@ -39,7 +39,7 @@ function getWeather(apiKey) {    ;
             const darksky = `https://api.darksky.net/forecast/${apiKey}/${lat},${lon}?units=ca&exclude=minutely,hourly,alerts,flags`;
             fetch(proxy + darksky)
                 .then(resp => resp)
-                .then(data => { setTimeout(() => resolve(data.json()), 1000) })
+                .then(data => { setTimeout(() => resolve(data.json()), 250) })
         })
     })
 }
