@@ -2,6 +2,7 @@ import React, { Component, lazy, Suspense } from 'react';
 import Loading from './Loading.jsx';
 const WeatherDisplay = lazy(() => import('./WeatherDisplay.jsx'));
 const WeatherInfo = lazy(() => import('./WeatherInfo.jsx'));
+const WeatherPredict = lazy(() => import('./WeatherPredict.jsx'));
 
 class App extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class App extends Component {
                         <WeatherDisplay weather={this.state.weather.currently} city={this.state.weather.timezone} />
                         <WeatherInfo weather={this.state.weather.currently} />
                         <div className="clear"></div>          
+                        <WeatherPredict predict={this.state.weather.daily} />
                     </Suspense>
                 </div>
             </div>
