@@ -13,7 +13,7 @@ class WeatherDisplay extends Component {
                     <p className="weather-display__temp-apparent">Feels like: {appTemp}°</p>
                 </div>
                 <div className="weather-display__summary">
-                    <div className="weather-display__summary-icon" data-icon={weather.icon} ></div>
+                    <img src="/img/icons/cloudy.svg" alt="" className="weather-display__summary-icon"/>
                     <h2 className="weather-display__summary-title">{weather.summary}</h2>                    
                 </div>
             </div>
