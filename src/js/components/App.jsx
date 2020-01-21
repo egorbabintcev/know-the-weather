@@ -24,7 +24,7 @@ class App extends Component {
                     <Suspense fallback={<Loading />}>
                         <WeatherDisplay weather={this.state.weather.currently} city={this.state.weather.timezone} />
                         <WeatherInfo weather={this.state.weather.currently} />
-                        <div className="clear"></div>                        
+                        <div className="clear"></div>          
                     </Suspense>
                 </div>
             </div>
@@ -32,8 +32,8 @@ class App extends Component {
     }
 }
 
-function getWeather(apiKey) {    ;    
-    const proxy = "https://cors-anywhere.herokuapp.com/"
+function getWeather(apiKey) {   
+    const proxy = "https://cors-anywhere.herokuapp.com/";
     
     return new Promise((resolve, reject) => {
         window.navigator.geolocation.getCurrentPosition(loc => {

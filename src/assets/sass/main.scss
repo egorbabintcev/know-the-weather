@@ -20,21 +20,6 @@ body {
 .container {
     @include make-container();
 }
-@import 'reset-css/sass/reset';
-@import 'utils/typography', 'utils/variables', 'utils/grid';
-
-html {
-    font-size: 62.5%;
-}
-
-body {
-    color: $dark--main;
-    font-family: $fontStack--sans;
-}
-
-.container {
-    @include make-container();
-}
 
 .loading-circle {
     width: 50px;
@@ -136,6 +121,7 @@ body {
             }
         }
     }
+
     &-info {
         display: flex;
         &__list {
@@ -153,6 +139,21 @@ body {
                     font-weight: 700;
                 }
             }
+        }
+    }
+    
+    &-predict {
+        width: 100%;        
+        &__cards {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+        &__card {
+            min-width: 200px;
+            padding: 30px 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25); 
         }
     }
 }
