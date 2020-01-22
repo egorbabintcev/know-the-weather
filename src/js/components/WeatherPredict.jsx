@@ -14,21 +14,21 @@ class WeatherPredict extends Component {
 
     slideNext() {
         const wrapperWidth = this.wrapper.current.offsetWidth;  
-        const diff = -(1615 - wrapperWidth) / 16;
+        const diff = -(1630 - wrapperWidth) / 16;
         this.setState(state => {
-            if (state.translate - 12 < diff) {
+            if (state.translate - 15 < diff) {
                 return { translate: diff };
             }
-            return { translate: state.translate - 12 };
+            return { translate: state.translate - 15 };
         })
     }
 
     slidePrev() {
         this.setState(state => {
-            if (state.translate + 12 > 0) {
+            if (state.translate + 15 > 0) {
                 return { translate: 0 };
             }
-            return { translate: state.translate + 12 };
+            return { translate: state.translate + 15 };
         })
     }
 
@@ -50,8 +50,13 @@ class WeatherPredict extends Component {
 
         return (
             <div className="weather-predict" ref={this.wrapper}>
-                <button className="weather-predict__button weather-predict__button_prev" onClick={this.slidePrev}>&lt;</button>
-                <button className="weather-predict__button weather-predict__button_next" onClick={this.slideNext}>&gt;</button>
+                <h3 className="weather-predict__summary">Predict: {this.props.predict.summary}</h3>
+                <button className="weather-predict__button weather-predict__button_prev" onClick={this.slidePrev}>
+                    <i className="fal fa-angle-left"></i>
+                </button>
+                <button className="weather-predict__button weather-predict__button_next" onClick={this.slideNext}>
+                    <i className="fal fa-angle-right"></i>
+                </button>
                 <div className="weather-predict__cards">
                     <div className="weather-predict__cards-wrapper" style={translate}>
                         {predict}
