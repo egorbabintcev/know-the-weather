@@ -8,7 +8,7 @@ class WeatherDisplay extends Component {
         const icon = weather.icon;       
 
         return (
-            <div className="weather-display">
+            <div className={"weather-display weather-display_" + this.props.theme}>
                 <div className="weather-display__temp">
                     <h2 className="weather-display__temp-main">{temp}°</h2>
                     <p className="weather-display__temp-apparent">Feels like: {appTemp}°</p>

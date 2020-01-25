@@ -49,7 +49,7 @@ class WeatherPredict extends Component {
         const translate = { transform: `translateX(${this.state.translate}%)` }  
 
         return (
-            <div className="weather-predict" ref={this.wrapper}>
+            <div className="weather-predict weather-predict" ref={this.wrapper}>
                 <h3 className="weather-predict__summary">Predict: {this.props.predict.summary}</h3>
                 <button className="weather-predict__button weather-predict__button_prev" onClick={this.slidePrev}>
                     <i className="fal fa-angle-left"></i>
@@ -57,7 +57,7 @@ class WeatherPredict extends Component {
                 <button className="weather-predict__button weather-predict__button_next" onClick={this.slideNext}>
                     <i className="fal fa-angle-right"></i>
                 </button>
-                <div className="weather-predict__cards">
+                <div className={"weather-predict__cards weather-predict__cards_" + this.props.theme}>
                     <div className="weather-predict__cards-wrapper" style={translate}>
                         {predict}
                     </div>                    

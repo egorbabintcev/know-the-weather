@@ -1,5 +1,6 @@
 import React, { Component, lazy, Suspense } from 'react';
 import Loading from './Loading.jsx';
+
 const WeatherDisplay = lazy(() => import('./WeatherDisplay.jsx'));
 const WeatherInfo = lazy(() => import('./WeatherInfo.jsx'));
 const WeatherPredict = lazy(() => import('./WeatherPredict.jsx'));
@@ -7,8 +8,11 @@ const WeatherPredict = lazy(() => import('./WeatherPredict.jsx'));
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            theme: 'light'
+        };
         this.fetchWeather = this.fetchWeather.bind(this);
+        this.themeChange = this.themeChange.bind(this);
     }
 
     componentDidMount() {
@@ -32,16 +36,30 @@ class App extends Component {
         })        
     }
 
+    themeChange() {     
+        this.setState(state => {
+            const theme = state.theme === 'light' ? 'dark' : 'light';
+            document.querySelector('body').classList.toggle('body_dark')
+            return { theme };
+        })
+    }   
+
     render() {
         if (!this.state.weather) return <Loading />;   
         return (
             <div className="container">
-                <div className="weather">
-                    <Suspense fallback={<Loading />}>                        
-                        <WeatherDisplay weather={this.state.weather.currently} city={this.state.weather.timezone} />
+                <div className={"weather weather_" + this.state.theme}>
+                    <Suspense fallback={<Loading />}>                  
+                        <label className="theme-toggle" onChange={this.themeChange}>
+                            <input type="checkbox" className="theme-toggle__checkbox"/>
+                            <span className="theme-toggle__label">Light</span>
+                            <div className="theme-toggle__slider"></div>
+                            <span className="theme-toggle__label">Dark</span>
+                        </label>
+                        <WeatherDisplay theme={this.state.theme} weather={this.state.weather.currently} city={this.state.weather.timezone} />
                         <WeatherInfo weather={this.state.weather.currently} />
                         <div className="clear"></div>          
-                        <WeatherPredict predict={this.state.weather.daily} />
+                        <WeatherPredict theme={this.state.theme} predict={this.state.weather.daily} />
                     </Suspense>
                 </div>
             </div>

@@ -15,6 +15,11 @@ body {
     margin: 0;
     font-family: $fontStack--sans;
     color: $dark--main;
+    transition: background-color $themeChange--delay;
+}
+
+.body_dark {    
+    background-color: $dark--main;
 }
 
 .container {
@@ -62,7 +67,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    transition: color $themeChange--delay;
 
+    &_dark {
+        color: #fff;
+        transition: color $themeChange--delay;        
+    }
     &-display {
         padding: 40px 30px;
         margin-right: 100px;        
@@ -70,7 +80,11 @@ body {
         align-items: center;
         border-radius: 10px;      
         box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);         
+        transition: background-color $themeChange--delay;
 
+        &_dark {
+            background-color: $dark--additional;
+        }
         &__temp {
             position: relative;
             margin-right: 75px;
@@ -179,12 +193,16 @@ body {
             align-items: stretch;            
             padding: 30px 15px;
             border-radius: 10px;
-            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);          
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+            transition: background-color $themeChange--delay;
 
+            &_dark {
+                background-color: $dark--additional;
+            }
             &-wrapper {          
-                transition: .5s;                                     
+                transition: transform .5s;
                 display: flex;
-                align-items: stretch;
+                align-items: stretch;                
             }
         }
         &__card {
@@ -231,6 +249,55 @@ body {
                     weight: 300;
                 }
             }
+        }
+    }
+}
+
+.theme-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+
+    &__slider {
+        width: 58px;
+        height: 32px;
+        display: block;
+        margin: 0 15px;
+        position: relative;
+        background-color: $white;
+        border-radius: 16px;
+        background-color: $dark--additional;        
+        transition: background-color $themeChange--delay;
+        &::before {
+            content: '';
+            display: block;
+            width: 26px;
+            height: 26px;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: all $themeChange--delay;
+        }
+        .theme-toggle__checkbox:checked ~ & {
+            background-color: $white;
+            &::before {
+                left: 29px; 
+                background-color: $dark--additional;
+            }
+        }
+    }
+    &__checkbox {
+        display: none;
+    }
+    &__label {
+        font: {
+            size: 2rem;
+            weight: 300;
         }
     }
 }
