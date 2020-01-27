@@ -106,5 +106,8 @@ module.exports = {
       })
     })
   ],
-  stats: false
+  stats: false,
+  resolve: {
+    extensions: [ '.', '.js', '.jsx' ]
+  }
 }
