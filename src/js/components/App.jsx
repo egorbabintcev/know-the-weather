@@ -1,70 +1,72 @@
-import React, { Component, lazy, Suspense } from 'react';
-import Loading from './Loading.jsx';
+import React from 'react';
+import Loading from './Loading';
 
-const WeatherDisplay = lazy(() => import('./WeatherDisplay.jsx'));
-const WeatherInfo = lazy(() => import('./WeatherInfo.jsx'));
-const WeatherPredict = lazy(() => import('./WeatherPredict.jsx'));
+const WeatherDisplay = React.lazy(() => import('./WerDisplay'));
+const WeatherInfo = React.lazy(() => import('./WeatherInfo'));
+const WeatherPredict = React.lazy(() => import('./WeatherPredict'));
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            theme: 'light'
-        };
-        this.fetchWeather = this.fetchWeather.bind(this);
-        this.themeChange = this.themeChange.bind(this);
-    }
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: 'light',
+    };
+    this.fetchWeather = this.fetchWeather.bind(this);
+    this.themeChange = this.themeChange.bind(this);
+  }
 
-    componentDidMount() {
-        this.fetchWeather();
-    }
+  componentDidMount() {
+    this.fetchWeather();
+  }
 
-    fetchWeather() {
-        const proxy = "https://cors-anywhere.herokuapp.com/";
-    
-        window.navigator.geolocation.getCurrentPosition(loc => {
-            const apiKey = '45ebfa2ec98ccdf3e369c1c976bf5327';
-            const lat = loc.coords.latitude;
-            const lon = loc.coords.longitude;
-            const darksky = `https://api.darksky.net/forecast/${apiKey}/${lat},${lon}?units=ca&exclude=minutely,hourly,alerts,flags`;
-            fetch(proxy + darksky)
-                .then(resp => resp)
-                .then(data => { setTimeout(() => {
-                    data.json()
-                        .then(json => { this.setState({ weather: json }) })
-                }, 250) })
-        })        
-    }
+  fetchWeather() {
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
 
-    themeChange() {     
-        this.setState(state => {
-            const theme = state.theme === 'light' ? 'dark' : 'light';
-            document.querySelector('body').classList.toggle('body_dark')
-            return { theme };
-        })
-    }   
+    window.navigator.geolocation.getCurrentPosition((loc) => {
+      const apiKey = '45ebfa2ec98ccdf3e369c1c976bf5327';
+      const { latitude: lat, longitude: lon } = loc.coords;
+      const darksky = `https://api.darksky.net/forecast/${apiKey}/${lat},${lon}?units=ca&exclude=minutely,hourly,alerts,flags`;
+      fetch(proxy + darksky)
+        .then((resp) => resp)
+        .then((data) => {
+          setTimeout(() => {
+            data.json()
+              .then((json) => { this.setState({ weather: json }); });
+          }, 250);
+        });
+    });
+  }
 
-    render() {
-        if (!this.state.weather) return <Loading />;   
-        return (
-            <div className="container">
-                <div className={"weather weather_" + this.state.theme}>
-                    <Suspense fallback={<Loading />}>                  
-                        <label className="theme-toggle" onChange={this.themeChange}>
-                            <input type="checkbox" className="theme-toggle__checkbox"/>
-                            <span className="theme-toggle__label">Light</span>
-                            <div className="theme-toggle__slider"></div>
-                            <span className="theme-toggle__label">Dark</span>
-                        </label>
-                        <WeatherDisplay theme={this.state.theme} weather={this.state.weather.currently} city={this.state.weather.timezone} />
-                        <WeatherInfo weather={this.state.weather.currently} />
-                        <div className="clear"></div>          
-                        <WeatherPredict theme={this.state.theme} predict={this.state.weather.daily} />
-                    </Suspense>
-                </div>
-            </div>
-        );
-    }
+  themeChange() {
+    this.setState((state) => {
+      const theme = state.theme === 'light' ? 'dark' : 'light';
+      document.querySelector('body').classList.toggle('body_dark');
+      return { theme };
+    });
+  }
+
+  render() {
+    const { weather, weather: { currently, daily, timezone }, theme } = this.state;
+    if (!weather) return <Loading />;
+    return (
+      <div className="container">
+        <div className={`weather weather_${theme}`}>
+          <React.Suspense fallback={<Loading />}>
+            <label htmlFor="theme" className="theme-toggle" onChange={this.themeChange}>
+              <input id="theme" type="checkbox" className="theme-toggle__checkbox" />
+              <span className="theme-toggle__label">Light</span>
+              <div className="theme-toggle__slider" />
+              <span className="theme-toggle__label">Dark</span>
+            </label>
+            <WeatherDisplay theme={theme} weather={currently} city={timezone} />
+            <WeatherInfo weather={currently} />
+            <div className="clear" />
+            <WeatherPredict theme={theme} predict={daily} />
+          </React.Suspense>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
